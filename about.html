@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | TechNova Solutions</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d74da;
+            --accent: #00b4d8;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --success: #10b981;
+            --gray: #64748b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 0;
+            transition: all 0.4s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 26px;
+            color: var(--primary) !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary);
+        }
+        
+        .navbar-brand i {
+            font-size: 28px;
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .navbar-nav .nav-link {
+            color: var(--dark) !important;
+            font-weight: 500;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .navbar-nav .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--secondary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .navbar-nav .nav-link:hover:after,
+        .navbar-nav .nav-link.active:after {
+            width: 80%;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--secondary) !important;
+        }
+        
+        .dropdown-menu {
+            background-color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 10px 0;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(45, 116, 218, 0.08);
+            color: var(--secondary);
+            padding-left: 25px;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(45, 116, 218, 0.3);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 116, 218, 0.4);
+        }
+        
+        /* Analog Clock Styles */
+        .clock-container {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        
+        .analog-clock {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            position: relative;
+            box-shadow: 0 0 0 2px var(--secondary), 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .clock-center {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        .hour-hand, .minute-hand, .second-hand {
+            position: absolute;
+            transform-origin: bottom center;
+            border-radius: 2px;
+            bottom: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .hour-hand {
+            width: 2px;
+            height: 10px;
+            background: var(--primary);
+            z-index: 1;
+        }
+        
+        .minute-hand {
+            width: 2px;
+            height: 15px;
+            background: var(--secondary);
+            z-index: 2;
+        }
+        
+        .second-hand {
+            width: 1px;
+            height: 18px;
+            background: var(--accent);
+            z-index: 3;
+        }
+        
+        .clock-time {
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark);
+            background: rgba(45, 116, 218, 0.08);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border-left: 2px solid var(--secondary);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+            padding: 160px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon fill="white" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 0;
+        }
+        
+        .breadcrumb-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: white;
+        }
+        
+        .breadcrumb-item+.breadcrumb-item::before {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            font-size: 1.1rem;
+        }
+        
+        /* About Intro */
+        .about-intro {
+            background-color: white;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray);
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(45, 116, 218, 0.2);
+        }
+        
+        .highlight-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        /* Values Section */
+        .values-section {
+            background-color: #f8fafc;
+        }
+        
+        .value-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            height: 100%;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .value-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .value-card:hover:before {
+            transform: scaleX(1);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .value-icon {
+            font-size: 50px;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            display: inline-block;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(45, 116, 218, 0.1);
+        }
+        
+        /* Team Section */
+        .team-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-img {
+            height: 280px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-img:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-content {
+            padding: 25px;
+        }
+        
+        .team-content h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .team-content .position {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .team-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(45, 116, 218, 0.1);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--secondary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--secondary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -10px;
+        }
+        
+        .right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-content h3 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        .timeline-content .date {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .btn-cta {
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 20px;
+        }
+        
+        .footer-logo {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logo i {
+            font-size: 28px;
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .footer-logo span {
+            color: var(--secondary);
+        }
+        
+        .footer-links h5 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h5:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .clock-container {
+                margin: 10px 0;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .left::after, .right::after {
+                left: 21px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 140px 0 60px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <i class="fas fa-laptop-code"></i>
+      <span>MSS</span>
+    </a>
+
+    <!-- Navbar toggler for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="courses.html">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="services.html">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact Us</a>
+        </li>
+      </ul>
+
+      <!-- Clock + Login Button -->
+      <div class="d-flex align-items-center">
+        <div class="clock-container">
+          <div class="analog-clock">
+            <div class="hour-hand"></div>
+            <div class="minute-hand"></div>
+            <div class="second-hand"></div>
+            <div class="clock-center"></div>
+          </div>
+          <div class="clock-time">
+            <span id="current-time"></span>
+          </div>
+        </div>
+
+        <button class="btn login-btn ms-3">
+          <a href="login.html" style="text-decoration: none; color: #f8fafc;"><i class="fas fa-sign-in-alt me-2"></i>Login</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1 class="animate__animated animate__fadeInUp">About TechNova</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb animate__animated animate__fadeInUp animate__delay-1s">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">About Us</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Intro Section -->
+    <section class="section about-intro">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="section-title text-start">
+                        <h2>Our Story</h2>
+                        <p class="about-text">
+                            Founded in 2008, TechNova Solutions has grown from a small startup to a leading IT services and training provider. Our journey began with a simple mission: to bridge the gap between technology and business needs through innovative solutions and quality education.
+                        </p>
+                        <p class="about-text">
+                            Over the years, we've helped hundreds of businesses transform their operations with custom software solutions and trained thousands of students to become industry-ready IT professionals.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center fade-in">
+                        <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='400' viewBox='0 0 500 400'%3E%3Crect fill='%23f1f5f9' width='500' height='400'/%3E%3Cg fill='%232d74da' opacity='0.2'%3E%3Ccircle cx='100' cy='100' r='60'/%3E%3Ccircle cx='400' cy='150' r='80'/%3E%3Ccircle cx='250' cy='300' r='70'/%3E%3C/g%3E%3Cpath fill='%231a365d' d='M250,200 Q300,150 350,200 T450,200' stroke='%232d74da' stroke-width='3' fill='none'/%3E%3C/svg%3E" alt="Our Story" class="img-fluid rounded-3">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight-box fade-in delay-1">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h3>Driving Digital Transformation Since 2008</h3>
+                        <p>We combine cutting-edge technology with industry expertise to deliver solutions that drive real business value.</p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <a href="#contact" class="btn btn-cta">Get In Touch</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="section values-section">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Our Mission & Vision</h2>
+                <p>Guiding principles that drive our company forward</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="value-card fade-in">
+                        <div class="value-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Our Mission</h3>
+                        <p>To empower businesses with innovative technology solutions and equip individuals with future-ready IT skills through comprehensive training programs.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="value-card fade-in delay-1">
+                        <div class="value-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Our Vision</h3>
+                        <p>To be the leading catalyst for digital transformation, recognized for our technical excellence and commitment to nurturing IT talent globally.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Our Values</h2>
+                <p>The core principles that guide everything we do</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="value-card fade-in">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>We constantly explore new technologies and methodologies to deliver cutting-edge solutions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="value-card fade-in delay-1">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Collaboration</h3>
+                        <p>We believe in the power of teamwork and building strong partnerships with our clients.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="value-card fade-in delay-2">
+                        <div class="value-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Excellence</h3>
+                        <p>We strive for the highest quality in everything we do, from development to training.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section values-section">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Our Journey</h2>
+                <p>Key milestones in our company's history</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content">
+                        <div class="date">2008</div>
+                        <h3>Company Founded</h3>
+                        <p>TechNova Solutions was established with a focus on web development and IT training.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right fade-in delay-1">
+                    <div class="timeline-content">
+                        <div class="date">2012</div>
+                        <h3>Expanded Service Portfolio</h3>
+                        <p>Added mobile app development and advanced software solutions to our offerings.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left fade-in delay-2">
+                    <div class="timeline-content">
+                        <div class="date">2015</div>
+                        <h3>International Recognition</h3>
+                        <p>Received the "Excellence in IT Services" award and expanded operations to three new countries.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right fade-in delay-3">
+                    <div class="timeline-content">
+                        <div class="date">2018</div>
+                        <h3>Training Center Launch</h3>
+                        <p>Opened our state-of-the-art training facility with capacity for 500+ students annually.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left fade-in delay-4">
+                    <div class="timeline-content">
+                        <div class="date">2023</div>
+                        <h3>Digital Transformation Focus</h3>
+                        <p>Launched our comprehensive digital transformation practice serving enterprise clients.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Leadership Team</h2>
+                <p>Meet the experts driving our success</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="team-card fade-in">
+                        <div class="team-img">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="team-content">
+                            <h4>Sarah Johnson</h4>
+                            <div class="position">CEO & Founder</div>
+                            <p>With over 15 years in the IT industry, Sarah leads our strategic vision and company growth.</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-card fade-in delay-1">
+                        <div class="team-img">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="team-content">
+                            <h4>Michael Chen</h4>
+                            <div class="position">CTO</div>
+                            <p>Michael oversees our technical strategy and ensures we stay at the forefront of technology.</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-card fade-in delay-2">
+                        <div class="team-img">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="team-content">
+                            <h4>Priya Sharma</h4>
+                            <div class="position">Head of Training</div>
+                            <p>Priya leads our educational programs and ensures our courses meet industry standards.</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="fade-in">Ready to Transform Your Business?</h2>
+            <p class="fade-in delay-1">Partner with us to leverage cutting-edge technology solutions or enhance your team's skills with our comprehensive training programs.</p>
+            <a href="#contact" class="btn btn-cta fade-in delay-2">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-logo">
+                        <i class="fas fa-laptop-code"></i>
+                        Tech<span>Nova</span>
+                    </div>
+                    <p>Providing innovative IT solutions and comprehensive courses to help businesses and students succeed in the digital world.</p>
+                    <div class="social-icons mt-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Quick Links</h5>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Our Services</h5>
+                        <ul>
+                            <li><a href="#">Web App Development</a></li>
+                            <li><a href="#">Software Development</a></li>
+                            <li><a href="#">Mobile App Development</a></li>
+                            <li><a href="#">Windows Software</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Contact Us</h5>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt me-2"></i> 123 Tech Street, City</li>
+                            <li><i class="fas fa-phone me-2"></i> +1 234 567 8900</li>
+                            <li><i class="fas fa-envelope me-2"></i> info@technova.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 TechNova Solutions. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Update analog clock function
+        function updateAnalogClock() {
+            const now = new Date();
+            const seconds = now.getSeconds();
+            const minutes = now.getMinutes();
+            const hours = now.getHours() % 12;
+            
+            const secondDeg = (seconds / 60) * 360;
+            const minuteDeg = (minutes / 60) * 360 + (seconds / 60) * 6;
+            const hourDeg = (hours / 12) * 360 + (minutes / 60) * 30;
+            
+            document.querySelector('.second-hand').style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+            document.querySelector('.minute-hand').style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.querySelector('.hour-hand').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+        }
+        
+        // Update digital time display
+        function updateDigitalTime() {
+            const now = new Date();
+            
+            // Format time
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            
+            // Format date
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', options);
+            
+            // Update the clock element
+            document.getElementById('current-time').innerHTML = `${timeString}<br>${dateString}`;
+        }
+        
+        // Update clocks immediately and then every second
+        updateAnalogClock();
+        updateDigitalTime();
+        setInterval(() => {
+            updateAnalogClock();
+            updateDigitalTime();
+        }, 1000);
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Fade in animation on scroll
+        function checkFade() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+    </script>
+</body>
+</html>

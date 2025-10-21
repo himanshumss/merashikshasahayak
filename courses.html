@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses | MSS - IT Services & Training</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d74da;
+            --accent: #00b4d8;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --success: #10b981;
+            --gray: #64748b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 0;
+            transition: all 0.4s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 26px;
+            color: var(--primary) !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary);
+        }
+        
+        .navbar-brand i {
+            font-size: 28px;
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .navbar-nav .nav-link {
+            color: var(--dark) !important;
+            font-weight: 500;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .navbar-nav .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--secondary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .navbar-nav .nav-link:hover:after,
+        .navbar-nav .nav-link.active:after {
+            width: 80%;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--secondary) !important;
+        }
+        
+        .dropdown-menu {
+            background-color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 10px 0;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(45, 116, 218, 0.08);
+            color: var(--secondary);
+            padding-left: 25px;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(45, 116, 218, 0.3);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 116, 218, 0.4);
+        }
+        
+        /* Analog Clock Styles */
+        .clock-container {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        
+        .analog-clock {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            position: relative;
+            box-shadow: 0 0 0 2px var(--secondary), 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .clock-center {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        .hour-hand, .minute-hand, .second-hand {
+            position: absolute;
+            transform-origin: bottom center;
+            border-radius: 2px;
+            bottom: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .hour-hand {
+            width: 2px;
+            height: 10px;
+            background: var(--primary);
+            z-index: 1;
+        }
+        
+        .minute-hand {
+            width: 2px;
+            height: 15px;
+            background: var(--secondary);
+            z-index: 2;
+        }
+        
+        .second-hand {
+            width: 1px;
+            height: 18px;
+            background: var(--accent);
+            z-index: 3;
+        }
+        
+        .clock-time {
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark);
+            background: rgba(45, 116, 218, 0.08);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border-left: 2px solid var(--secondary);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+            padding: 160px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon fill="white" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 0;
+        }
+        
+        .breadcrumb-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: white;
+        }
+        
+        .breadcrumb-item+.breadcrumb-item::before {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            font-size: 1.1rem;
+        }
+        
+        /* Course Categories */
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+            justify-content: center;
+        }
+        
+        .category-btn {
+            background: white;
+            border: 1px solid #e2e8f0;
+            color: var(--dark);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        /* Course Cards */
+        .course-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            margin-bottom: 30px;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .course-img {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-img:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-content {
+            padding: 25px;
+        }
+        
+        .course-content h3 {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .course-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+            padding: 15px 0;
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .meta-value {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .meta-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        .btn-enroll {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-enroll:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(45, 116, 218, 0.3);
+        }
+        
+        /* Course Detail Modal */
+        .modal-header {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 25px 30px 15px;
+        }
+        
+        .modal-body {
+            padding: 25px 30px;
+        }
+        
+        .course-detail-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .course-icon {
+            font-size: 50px;
+            color: var(--secondary);
+            margin-right: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(45, 116, 218, 0.1);
+        }
+        
+        .course-detail-title h3 {
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .course-detail-title p {
+            color: var(--gray);
+            margin-bottom: 0;
+        }
+        
+        .detail-section {
+            margin-bottom: 30px;
+        }
+        
+        .detail-section h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .detail-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .detail-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .detail-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .pricing-box {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .price-note {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .btn-cta {
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 20px;
+        }
+        
+        .footer-logo {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logo i {
+            font-size: 28px;
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .footer-logo span {
+            color: var(--secondary);
+        }
+        
+        .footer-links h5 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h5:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .clock-container {
+                margin: 10px 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 140px 0 60px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .course-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .course-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <i class="fas fa-laptop-code"></i>
+      <span>MSS</span>
+    </a>
+
+    <!-- Navbar toggler for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="courses.html">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="services.html">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact Us</a>
+        </li>
+      </ul>
+
+      <!-- Clock + Login Button -->
+      <div class="d-flex align-items-center">
+        <div class="clock-container">
+          <div class="analog-clock">
+            <div class="hour-hand"></div>
+            <div class="minute-hand"></div>
+            <div class="second-hand"></div>
+            <div class="clock-center"></div>
+          </div>
+          <div class="clock-time">
+            <span id="current-time"></span>
+          </div>
+        </div>
+
+        <button class="btn login-btn ms-3">
+          <a href="login.html" style="text-decoration: none; color: #f8fafc;"><i class="fas fa-sign-in-alt me-2"></i>Login</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1 class="animate__animated animate__fadeInUp">Our Courses</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb animate__animated animate__fadeInUp animate__delay-1s">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Courses</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Comprehensive IT Training Programs</h2>
+                <p>Choose from our wide range of industry-relevant courses designed to boost your career</p>
+            </div>
+            
+            <div class="category-filter">
+                <button class="category-btn active" data-filter="all">All Courses</button>
+                <button class="category-btn" data-filter="web">Web Development</button>
+                <button class="category-btn" data-filter="programming">Programming</button>
+                <button class="category-btn" data-filter="database">Database</button>
+                <button class="category-btn" data-filter="framework">Frameworks</button>
+            </div>
+            
+            <div class="row">
+                <!-- HTML & CSS Course -->
+                <div class="col-lg-4 col-md-6 course-item" data-category="web">
+                    <div class="course-card fade-in">
+                        <div class="course-img">
+                            <i class="fab fa-html5"></i>
+                            <div class="course-badge">Beginner</div>
+                        </div>
+                        <div class="course-content">
+                            <h3>HTML & CSS</h3>
+                            <p>Learn the fundamentals of web development with HTML and CSS to create beautiful, responsive websites.</p>
+                            
+                            <div class="course-meta">
+                                <div class="meta-item">
+                                    <div class="meta-value">6 Weeks</div>
+                                    <div class="meta-label">Duration</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">₹8,999</div>
+                                    <div class="meta-label">Fee</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">Online</div>
+                                    <div class="meta-label">Mode</div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="html-css">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- JavaScript Course -->
+                <div class="col-lg-4 col-md-6 course-item" data-category="web programming">
+                    <div class="course-card fade-in delay-1">
+                        <div class="course-img">
+                            <i class="fab fa-js-square"></i>
+                            <div class="course-badge">Intermediate</div>
+                        </div>
+                        <div class="course-content">
+                            <h3>JavaScript</h3>
+                            <p>Master interactive web development with JavaScript programming for dynamic user experiences.</p>
+                            
+                            <div class="course-meta">
+                                <div class="meta-item">
+                                    <div class="meta-value">8 Weeks</div>
+                                    <div class="meta-label">Duration</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">₹12,999</div>
+                                    <div class="meta-label">Fee</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">Hybrid</div>
+                                    <div class="meta-label">Mode</div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="javascript">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Python Course -->
+                <div class="col-lg-4 col-md-6 course-item" data-category="programming">
+                    <div class="course-card fade-in delay-2">
+                        <div class="course-img">
+                            <i class="fab fa-python"></i>
+                            <div class="course-badge">Beginner</div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Python Programming</h3>
+                            <p>Learn Python from basics to advanced concepts for web development, data analysis, and automation.</p>
+                            
+                            <div class="course-meta">
+                                <div class="meta-item">
+                                    <div class="meta-value">10 Weeks</div>
+                                    <div class="meta-label">Duration</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">₹14,999</div>
+                                    <div class="meta-label">Fee</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">Online</div>
+                                    <div class="meta-label">Mode</div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="python">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Java Course -->
+                <div class="col-lg-4 col-md-6 course-item" data-category="programming">
+                    <div class="course-card fade-in">
+                        <div class="course-img">
+                            <i class="fab fa-java"></i>
+                            <div class="course-badge">Intermediate</div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Java Programming</h3>
+                            <p>Master object-oriented programming with Java for enterprise applications and Android development.</p>
+                            
+                            <div class="course-meta">
+                                <div class="meta-item">
+                                    <div class="meta-value">12 Weeks</div>
+                                    <div class="meta-label">Duration</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">₹16,999</div>
+                                    <div class="meta-label">Fee</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">Classroom</div>
+                                    <div class="meta-label">Mode</div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="java">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- DBMS & SQL Course -->
+                <div class="col-lg-4 col-md-6 course-item" data-category="database">
+                    <div class="course-card fade-in delay-1">
+                        <div class="course-img">
+                            <i class="fas fa-database"></i>
+                            <div class="course-badge">Beginner</div>
+                        </div>
+                        <div class="course-content">
+                            <h3>DBMS & SQL</h3>
+                            <p>Master database management systems and SQL query language for efficient data handling.</p>
+                            
+                            <div class="course-meta">
+                                <div class="meta-item">
+                                    <div class="meta-value">6 Weeks</div>
+                                    <div class="meta-label">Duration</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">₹10,999</div>
+                                    <div class="meta-label">Fee</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">Hybrid</div>
+                                    <div class="meta-label">Mode</div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="dbms">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Django Course -->
+                <div class="col-lg-4 col-md-6 course-item" data-category="framework programming">
+                    <div class="course-card fade-in delay-2">
+                        <div class="course-img">
+                            <i class="fab fa-python"></i>
+                            <div class="course-badge">Advanced</div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Django Framework</h3>
+                            <p>Build powerful web applications with Python and Django framework following best practices.</p>
+                            
+                            <div class="course-meta">
+                                <div class="meta-item">
+                                    <div class="meta-value">8 Weeks</div>
+                                    <div class="meta-label">Duration</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">₹15,999</div>
+                                    <div class="meta-label">Fee</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-value">Online</div>
+                                    <div class="meta-label">Mode</div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-enroll" data-bs-toggle="modal" data-bs-target="#courseModal" data-course="django">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="fade-in">Ready to Start Your IT Career?</h2>
+            <p class="fade-in delay-1">Join our comprehensive courses and get industry-ready with hands-on training from experienced instructors.</p>
+            <a href="#contact" class="btn btn-cta fade-in delay-2">Enroll Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-logo">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>MSS</span>
+                    </div>
+                    <p>Providing innovative IT solutions and comprehensive courses to help businesses and students succeed in the digital world.</p>
+                    <div class="social-icons mt-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Quick Links</h5>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="courses.html">Courses</a></li>
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Our Courses</h5>
+                        <ul>
+                            <li><a href="#">Web Development</a></li>
+                            <li><a href="#">Programming</a></li>
+                            <li><a href="#">Database</a></li>
+                            <li><a href="#">Frameworks</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Contact Us</h5>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt me-2"></i> 123 Tech Street, City</li>
+                            <li><i class="fas fa-phone me-2"></i> +1 234 567 8900</li>
+                            <li><i class="fas fa-envelope me-2"></i> info@mss.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 MSS Solutions. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Course Detail Modal -->
+    <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="courseModalLabel">Course Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="course-detail-header">
+                        <div class="course-icon">
+                            <i class="fab fa-html5" id="modal-course-icon"></i>
+                        </div>
+                        <div class="course-detail-title">
+                            <h3 id="modal-course-title">HTML & CSS</h3>
+                            <p id="modal-course-desc">Learn the fundamentals of web development</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="detail-section">
+                                <h4>Course Overview</h4>
+                                <p id="modal-course-overview">This course provides comprehensive training in HTML and CSS, the foundational technologies for web development.</p>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>What You'll Learn</h4>
+                                <ul class="detail-list" id="modal-course-learn">
+                                    <li>HTML5 semantic elements and structure</li>
+                                    <li>CSS styling, layouts, and responsive design</li>
+                                    <li>Modern CSS features like Flexbox and Grid</li>
+                                    <li>Web accessibility best practices</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>Eligibility</h4>
+                                <ul class="detail-list" id="modal-course-eligibility">
+                                    <li>Basic computer knowledge</li>
+                                    <li>No prior programming experience required</li>
+                                    <li>Suitable for beginners</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="detail-section">
+                                <h4>Requirements</h4>
+                                <ul class="detail-list" id="modal-course-requirements">
+                                    <li>Laptop/Computer with internet connection</li>
+                                    <li>Code editor (VS Code recommended)</li>
+                                    <li>Modern web browser</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="pricing-box">
+                                <div class="price" id="modal-course-price">₹8,999</div>
+                                <div class="price-note" id="modal-course-duration">6 Weeks Duration</div>
+                                <button class="btn btn-enroll w-100">Enroll Now</button>
+                                <p class="small mt-3">* Installment options available</p>
+                            </div>
+                            
+                            <div class="detail-section mt-4">
+                                <h4>Course Features</h4>
+                                <ul class="detail-list" id="modal-course-features">
+                                    <li>Live instructor-led sessions</li>
+                                    <li>Hands-on projects</li>
+                                    <li>Certificate of completion</li>
+                                    <li>Lifetime access to resources</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Course data
+        const courses = {
+            'html-css': {
+                title: 'HTML & CSS',
+                desc: 'Learn the fundamentals of web development',
+                icon: 'fab fa-html5',
+                overview: 'This comprehensive course covers everything you need to know about HTML and CSS to create beautiful, responsive websites. You will learn from basics to advanced concepts with hands-on projects.',
+                learn: [
+                    'HTML5 semantic elements and structure',
+                    'CSS styling, layouts, and responsive design',
+                    'Modern CSS features like Flexbox and Grid',
+                    'Web accessibility best practices',
+                    'CSS animations and transitions',
+                    'Cross-browser compatibility'
+                ],
+                eligibility: [
+                    'Basic computer knowledge',
+                    'No prior programming experience required',
+                    'Suitable for beginners and aspiring web developers'
+                ],
+                requirements: [
+                    'Laptop/Computer with internet connection',
+                    'Code editor (VS Code recommended)',
+                    'Modern web browser (Chrome, Firefox, etc.)'
+                ],
+                features: [
+                    'Live instructor-led sessions',
+                    'Hands-on projects and assignments',
+                    'Certificate of completion',
+                    'Lifetime access to course resources',
+                    'Dedicated doubt-solving sessions'
+                ],
+                price: '₹8,999',
+                duration: '6 Weeks Duration'
+            },
+            'javascript': {
+                title: 'JavaScript',
+                desc: 'Master interactive web development',
+                icon: 'fab fa-js-square',
+                overview: 'Take your web development skills to the next level with JavaScript. Learn to create dynamic, interactive web applications with modern JavaScript (ES6+) features and best practices.',
+                learn: [
+                    'JavaScript fundamentals and ES6+ features',
+                    'DOM manipulation and event handling',
+                    'Asynchronous JavaScript (Promises, Async/Await)',
+                    'API integration and AJAX',
+                    'Modern JavaScript frameworks overview',
+                    'Debugging and performance optimization'
+                ],
+                eligibility: [
+                    'Basic knowledge of HTML and CSS',
+                    'Understanding of programming concepts',
+                    'Suitable for intermediate learners'
+                ],
+                requirements: [
+                    'Laptop/Computer with internet connection',
+                    'Code editor and browser developer tools',
+                    'Basic understanding of web technologies'
+                ],
+                features: [
+                    'Live coding sessions with experts',
+                    'Real-world projects and exercises',
+                    'Certificate of completion',
+                    'Code reviews and feedback',
+                    'Career guidance and support'
+                ],
+                price: '₹12,999',
+                duration: '8 Weeks Duration'
+            },
+            'python': {
+                title: 'Python Programming',
+                desc: 'From basics to advanced concepts',
+                icon: 'fab fa-python',
+                overview: 'Python is one of the most versatile programming languages. This course covers Python from fundamentals to advanced topics, preparing you for web development, data analysis, and automation.',
+                learn: [
+                    'Python syntax and fundamental concepts',
+                    'Object-oriented programming in Python',
+                    'File handling and exception handling',
+                    'Working with databases and APIs',
+                    'Data analysis with Pandas and NumPy',
+                    'Web scraping and automation'
+                ],
+                eligibility: [
+                    'Basic computer knowledge',
+                    'No prior programming experience required',
+                    'Suitable for beginners to intermediate learners'
+                ],
+                requirements: [
+                    'Laptop/Computer with internet connection',
+                    'Python installed (guidance provided)',
+                    'Code editor (PyCharm or VS Code recommended)'
+                ],
+                features: [
+                    'Comprehensive curriculum with projects',
+                    'Dedicated mentor support',
+                    'Certificate of completion',
+                    'Portfolio-building exercises',
+                    'Job readiness preparation'
+                ],
+                price: '₹14,999',
+                duration: '10 Weeks Duration'
+            },
+            'java': {
+                title: 'Java Programming',
+                desc: 'Master object-oriented programming',
+                icon: 'fab fa-java',
+                overview: 'Java is a powerful, versatile programming language used for enterprise applications, Android development, and more. This course covers Java fundamentals to advanced concepts with real-world applications.',
+                learn: [
+                    'Java syntax and core concepts',
+                    'Object-oriented programming principles',
+                    'Exception handling and multithreading',
+                    'Collections framework and data structures',
+                    'JDBC for database connectivity',
+                    'Introduction to Spring framework'
+                ],
+                eligibility: [
+                    'Basic programming knowledge preferred',
+                    'Understanding of algorithms and logic',
+                    'Suitable for intermediate to advanced learners'
+                ],
+                requirements: [
+                    'Laptop/Computer with internet connection',
+                    'Java Development Kit (JDK)',
+                    'IDE (Eclipse or IntelliJ IDEA recommended)'
+                ],
+                features: [
+                    'Industry-relevant curriculum',
+                    'Hands-on coding exercises',
+                    'Certificate of completion',
+                    'Interview preparation guidance',
+                    'Placement assistance for eligible students'
+                ],
+                price: '₹16,999',
+                duration: '12 Weeks Duration'
+            },
+            'dbms': {
+                title: 'DBMS & SQL',
+                desc: 'Master database management systems',
+                icon: 'fas fa-database',
+                overview: 'Learn how to design, implement, and manage databases effectively. This course covers database concepts, SQL querying, normalization, and working with popular database systems.',
+                learn: [
+                    'Database concepts and architecture',
+                    'SQL fundamentals and advanced queries',
+                    'Database design and normalization',
+                    'Working with MySQL/PostgreSQL',
+                    'Stored procedures and functions',
+                    'Database security and optimization'
+                ],
+                eligibility: [
+                    'Basic computer knowledge',
+                    'Understanding of data concepts',
+                    'Suitable for beginners to intermediate learners'
+                ],
+                requirements: [
+                    'Laptop/Computer with internet connection',
+                    'Database software (MySQL/PostgreSQL)',
+                    'SQL client or command-line interface'
+                ],
+                features: [
+                    'Practical database design projects',
+                    'Real-world query optimization techniques',
+                    'Certificate of completion',
+                    'Industry case studies',
+                    'Database administration basics'
+                ],
+                price: '₹10,999',
+                duration: '6 Weeks Duration'
+            },
+            'django': {
+                title: 'Django Framework',
+                desc: 'Build powerful web applications',
+                icon: 'fab fa-python',
+                overview: 'Django is a high-level Python web framework that enables rapid development of secure and maintainable websites. Learn to build full-featured web applications with Django.',
+                learn: [
+                    'Django architecture and MTV pattern',
+                    'Models, views, and templates',
+                    'Django ORM and database integration',
+                    'User authentication and authorization',
+                    'REST API development with Django REST Framework',
+                    'Deployment and production considerations'
+                ],
+                eligibility: [
+                    'Python programming knowledge',
+                    'Basic understanding of web technologies',
+                    'Suitable for intermediate to advanced learners'
+                ],
+                requirements: [
+                    'Laptop/Computer with internet connection',
+                    'Python and Django installed',
+                    'Code editor and virtual environment knowledge'
+                ],
+                features: [
+                    'End-to-end project development',
+                    'Best practices and security considerations',
+                    'Certificate of completion',
+                    'Code reviews and optimization tips',
+                    'Deployment guidance'
+                ],
+                price: '₹15,999',
+                duration: '8 Weeks Duration'
+            }
+        };
+
+        // Update analog clock function
+        function updateAnalogClock() {
+            const now = new Date();
+            const seconds = now.getSeconds();
+            const minutes = now.getMinutes();
+            const hours = now.getHours() % 12;
+            
+            const secondDeg = (seconds / 60) * 360;
+            const minuteDeg = (minutes / 60) * 360 + (seconds / 60) * 6;
+            const hourDeg = (hours / 12) * 360 + (minutes / 60) * 30;
+            
+            document.querySelector('.second-hand').style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+            document.querySelector('.minute-hand').style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.querySelector('.hour-hand').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+        }
+        
+        // Update digital time display
+        function updateDigitalTime() {
+            const now = new Date();
+            
+            // Format time
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            
+            // Format date
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', options);
+            
+            // Update the clock element
+            document.getElementById('current-time').innerHTML = `${timeString}<br>${dateString}`;
+        }
+        
+        // Update clocks immediately and then every second
+        updateAnalogClock();
+        updateDigitalTime();
+        setInterval(() => {
+            updateAnalogClock();
+            updateDigitalTime();
+        }, 1000);
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Fade in animation on scroll
+        function checkFade() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+        
+        // Course category filtering
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                
+                // Show/hide courses based on filter
+                document.querySelectorAll('.course-item').forEach(course => {
+                    if (filter === 'all' || course.getAttribute('data-category').includes(filter)) {
+                        course.style.display = 'block';
+                    } else {
+                        course.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Course modal functionality
+        const courseModal = document.getElementById('courseModal');
+        if (courseModal) {
+            courseModal.addEventListener('show.bs.modal', function(event) {
+                const button = event.relatedTarget;
+                const courseId = button.getAttribute('data-course');
+                const course = courses[courseId];
+                
+                // Update modal content
+                document.getElementById('modal-course-title').textContent = course.title;
+                document.getElementById('modal-course-desc').textContent = course.desc;
+                document.getElementById('modal-course-icon').className = course.icon;
+                document.getElementById('modal-course-overview').textContent = course.overview;
+                document.getElementById('modal-course-price').textContent = course.price;
+                document.getElementById('modal-course-duration').textContent = course.duration;
+                
+                // Update lists
+                updateList('modal-course-learn', course.learn);
+                updateList('modal-course-eligibility', course.eligibility);
+                updateList('modal-course-requirements', course.requirements);
+                updateList('modal-course-features', course.features);
+            });
+        }
+        
+        function updateList(elementId, items) {
+            const listElement = document.getElementById(elementId);
+            listElement.innerHTML = '';
+            
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                listElement.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>

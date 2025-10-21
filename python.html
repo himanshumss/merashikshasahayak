@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Programming Course | MSS - IT Services & Training</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d74da;
+            --accent: #00b4d8;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --success: #10b981;
+            --gray: #64748b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 0;
+            transition: all 0.4s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 26px;
+            color: var(--primary) !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary);
+        }
+        
+        .navbar-brand i {
+            font-size: 28px;
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .navbar-nav .nav-link {
+            color: var(--dark) !important;
+            font-weight: 500;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .navbar-nav .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--secondary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .navbar-nav .nav-link:hover:after,
+        .navbar-nav .nav-link.active:after {
+            width: 80%;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--secondary) !important;
+        }
+        
+        .dropdown-menu {
+            background-color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 10px 0;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(45, 116, 218, 0.08);
+            color: var(--secondary);
+            padding-left: 25px;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(45, 116, 218, 0.3);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 116, 218, 0.4);
+        }
+        
+        /* Analog Clock Styles */
+        .clock-container {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        
+        .analog-clock {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            position: relative;
+            box-shadow: 0 0 0 2px var(--secondary), 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .clock-center {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        .hour-hand, .minute-hand, .second-hand {
+            position: absolute;
+            transform-origin: bottom center;
+            border-radius: 2px;
+            bottom: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .hour-hand {
+            width: 2px;
+            height: 10px;
+            background: var(--primary);
+            z-index: 1;
+        }
+        
+        .minute-hand {
+            width: 2px;
+            height: 15px;
+            background: var(--secondary);
+            z-index: 2;
+        }
+        
+        .second-hand {
+            width: 1px;
+            height: 18px;
+            background: var(--accent);
+            z-index: 3;
+        }
+        
+        .clock-time {
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark);
+            background: rgba(45, 116, 218, 0.08);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border-left: 2px solid var(--secondary);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+            padding: 160px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon fill="white" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+        
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 0;
+        }
+        
+        .breadcrumb-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: white;
+        }
+        
+        .breadcrumb-item+.breadcrumb-item::before {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            font-size: 1.1rem;
+        }
+        
+        /* Course Hero Section */
+        .course-hero {
+            background-color: white;
+            padding: 60px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .course-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+        }
+        
+        .course-icon-large {
+            font-size: 80px;
+            color: var(--secondary);
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(45, 116, 218, 0.1);
+            flex-shrink: 0;
+        }
+        
+        .course-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .course-meta-info {
+            display: flex;
+            gap: 30px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .meta-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .meta-value {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .btn-enroll-large {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(45, 116, 218, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-enroll-large:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 116, 218, 0.4);
+            color: white;
+        }
+        
+        /* Course Content Section */
+        .course-content-section {
+            background-color: #f8fafc;
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .module-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .topic-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .topic-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .topic-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        /* Requirements Section */
+        .requirements-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .requirements-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .requirements-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .requirements-list li:before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Pricing Section */
+        .pricing-card-detailed {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            text-align: center;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .course-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .price-note {
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .feature-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        /* Instructor Section */
+        .instructor-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+        
+        .instructor-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            flex-shrink: 0;
+        }
+        
+        .instructor-info h3 {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .instructor-title {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .instructor-bio {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .author-role {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .btn-cta {
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 20px;
+        }
+        
+        .footer-logo {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logo i {
+            font-size: 28px;
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .footer-logo span {
+            color: var(--secondary);
+        }
+        
+        .footer-links h5 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h5:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .clock-container {
+                margin: 10px 0;
+            }
+            
+            .course-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .course-icon-large {
+                align-self: center;
+            }
+            
+            .instructor-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .instructor-img {
+                align-self: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 140px 0 60px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .course-meta-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <i class="fas fa-laptop-code"></i>
+      <span>MSS</span>
+    </a>
+
+    <!-- Navbar toggler for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="courses.html">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="services.html">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact Us</a>
+        </li>
+      </ul>
+
+      <!-- Clock + Login Button -->
+      <div class="d-flex align-items-center">
+        <div class="clock-container">
+          <div class="analog-clock">
+            <div class="hour-hand"></div>
+            <div class="minute-hand"></div>
+            <div class="second-hand"></div>
+            <div class="clock-center"></div>
+          </div>
+          <div class="clock-time">
+            <span id="current-time"></span>
+          </div>
+        </div>
+
+        <button class="btn login-btn ms-3">
+          <a href="login.html" style="text-decoration: none; color: #f8fafc;"><i class="fas fa-sign-in-alt me-2"></i>Login</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1 class="animate__animated animate__fadeInUp">Python Programming</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb animate__animated animate__fadeInUp animate__delay-1s">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="courses.html">Courses</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Python Programming</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Hero Section -->
+    <section class="course-hero">
+        <div class="container">
+            <div class="course-header">
+                <div class="course-icon-large">
+                    <i class="fab fa-python"></i>
+                </div>
+                <div class="course-details">
+                    <span class="course-badge">Beginner to Advanced</span>
+                    <h2>Python Programming Course</h2>
+                    <p class="lead">Master Python programming from fundamentals to advanced concepts for web development, data analysis, automation, and more.</p>
+                    
+                    <div class="course-meta-info">
+                        <div class="meta-item">
+                            <span class="meta-label">Duration</span>
+                            <span class="meta-value">10 Weeks</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Effort</span>
+                            <span class="meta-value">5-7 hours/week</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Level</span>
+                            <span class="meta-value">Beginner</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Format</span>
+                            <span class="meta-value">Online + Live Sessions</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#enroll" class="btn btn-enroll-large">
+                        <i class="fas fa-shopping-cart me-2"></i>Enroll Now - ₹14,999
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Content Section -->
+    <section class="section course-content-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="section-title">
+                        <h2>Course Curriculum</h2>
+                        <p>Comprehensive learning path covering all essential Python concepts and practical applications</p>
+                    </div>
+                    
+                    <div class="content-card fade-in">
+                        <h3 class="module-title">Module 1: Python Fundamentals</h3>
+                        <ul class="topic-list">
+                            <li>Introduction to Python and its applications</li>
+                            <li>Setting up Python development environment</li>
+                            <li>Variables, data types, and basic operations</li>
+                            <li>Input/output operations and string manipulation</li>
+                            <li>Conditional statements and logical operators</li>
+                            <li>Loops and iteration techniques</li>
+                            <li>Hands-on project: Simple calculator application</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-card fade-in delay-1">
+                        <h3 class="module-title">Module 2: Data Structures & Functions</h3>
+                        <ul class="topic-list">
+                            <li>Lists, tuples, and dictionary operations</li>
+                            <li>Sets and their applications</li>
+                            <li>Functions and parameter passing</li>
+                            <li>Lambda functions and functional programming</li>
+                            <li>List comprehensions and generator expressions</li>
+                            <li>Error handling and exceptions</li>
+                            <li>Hands-on project: Contact management system</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-card fade-in delay-2">
+                        <h3 class="module-title">Module 3: Object-Oriented Programming</h3>
+                        <ul class="topic-list">
+                            <li>Classes and objects in Python</li>
+                            <li>Inheritance and polymorphism</li>
+                            <li>Encapsulation and abstraction</li>
+                            <li>Special methods and operator overloading</li>
+                            <li>Class vs instance variables</li>
+                            <li>Design patterns in Python</li>
+                            <li>Hands-on project: Library management system</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-card fade-in delay-3">
+                        <h3 class="module-title">Module 4: Advanced Python Concepts</h3>
+                        <ul class="topic-list">
+                            <li>File handling and operations</li>
+                            <li>Working with databases (SQLite)</li>
+                            <li>Regular expressions and pattern matching</li>
+                            <li>Multithreading and multiprocessing</li>
+                            <li>Networking and socket programming</li>
+                            <li>Web scraping with BeautifulSoup</li>
+                            <li>Hands-on project: Web data extractor</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-card fade-in delay-4">
+                        <h3 class="module-title">Module 5: Real-World Applications</h3>
+                        <ul class="topic-list">
+                            <li>Introduction to web frameworks (Flask/Django)</li>
+                            <li>Data analysis with Pandas and NumPy</li>
+                            <li>Data visualization with Matplotlib and Seaborn</li>
+                            <li>Automation scripts and task scheduling</li>
+                            <li>API development and consumption</li>
+                            <li>Testing and debugging techniques</li>
+                            <li>Final project: Complete portfolio application</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="pricing-card-detailed fade-in">
+                        <h3>Enroll in this Course</h3>
+                        <div class="course-price">₹14,999</div>
+                        <p class="price-note">One-time payment • 10 weeks access</p>
+                        
+                        <ul class="feature-list">
+                            <li>40+ hours of video content</li>
+                            <li>15 hands-on projects</li>
+                            <li>Certificate of completion</li>
+                            <li>Lifetime access to course materials</li>
+                            <li>Q&A support with instructors</li>
+                            <li>Downloadable resources and code</li>
+                            <li>Career guidance session</li>
+                        </ul>
+                        
+                        <a href="#enroll" class="btn btn-enroll-large w-100 mb-3">Enroll Now</a>
+                        <p class="small text-muted">30-day money-back guarantee</p>
+                        
+                        <div class="mt-4">
+                            <h5>Course Includes:</h5>
+                            <div class="d-flex justify-content-between mt-3">
+                                <span>Video Lessons</span>
+                                <span>40+</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Projects</span>
+                                <span>15</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Quizzes</span>
+                                <span>8</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Support</span>
+                                <span>24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="section-title">
+                        <h2>Course Requirements</h2>
+                        <p>What you need to get started with this course</p>
+                    </div>
+                    
+                    <div class="requirements-card fade-in">
+                        <h4 class="mb-4">Prerequisites</h4>
+                        <ul class="requirements-list">
+                            <li>Basic computer literacy and familiarity with using software applications</li>
+                            <li>No prior programming experience required - perfect for beginners</li>
+                            <li>Understanding of high school mathematics (basic algebra)</li>
+                            <li>Willingness to learn and practice regularly</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="requirements-card fade-in delay-1 mt-4">
+                        <h4 class="mb-4">Technical Requirements</h4>
+                        <ul class="requirements-list">
+                            <li>A computer with Windows, macOS, or Linux operating system</li>
+                            <li>Minimum 4GB RAM (8GB recommended for better performance)</li>
+                            <li>Stable internet connection for downloading software and accessing course materials</li>
+                            <li>At least 2GB of free storage space for software and projects</li>
+                            <li>A modern web browser (Chrome, Firefox, Safari, or Edge)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="section-title">
+                        <h2>Who Is This Course For?</h2>
+                    </div>
+                    
+                    <div class="content-card fade-in">
+                        <ul class="topic-list">
+                            <li>Beginners wanting to learn programming</li>
+                            <li>Students pursuing computer science degrees</li>
+                            <li>Professionals looking to switch to tech careers</li>
+                            <li>Data analysts wanting to enhance their skills</li>
+                            <li>Web developers expanding their backend knowledge</li>
+                            <li>Automation engineers and IT professionals</li>
+                            <li>Anyone interested in problem-solving with code</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructor Section -->
+    <section class="section course-content-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Meet Your Instructor</h2>
+                <p>Learn from industry experts with real-world experience</p>
+            </div>
+            
+            <div class="instructor-card fade-in">
+                <div class="instructor-img">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="instructor-info">
+                    <h3>Dr. Priya Sharma</h3>
+                    <div class="instructor-title">Senior Python Developer & Data Scientist</div>
+                    <div class="instructor-bio">
+                        <p>Dr. Priya Sharma has over 8 years of experience in Python development and data science. She holds a PhD in Computer Science and has worked with leading tech companies including Google and Amazon.</p>
+                        <p class="mt-3">She has trained over 2,000 students in Python programming and has contributed to several open-source Python projects. Her teaching methodology focuses on practical applications and real-world projects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials-section">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2 style="color: white;">Student Success Stories</h2>
+                <p style="color: rgba(255,255,255,0.8);">Hear from our students who transformed their careers</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-text">
+                            "This Python course completely changed my career trajectory. I went from knowing nothing about programming to landing a job as a junior developer in just 4 months. The projects were challenging but extremely rewarding."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Rahul Verma</h4>
+                                <div class="author-role">Junior Python Developer at TechCorp</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="testimonial-card fade-in delay-1">
+                        <div class="testimonial-text">
+                            "The instructor's teaching style made complex concepts easy to understand. The hands-on projects helped me build a strong portfolio that impressed employers. I'm now working on automation projects that save my company hours of manual work."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Anjali Patel</h4>
+                                <div class="author-role">Data Analyst at FinServe</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="fade-in">Ready to Start Your Python Journey?</h2>
+            <p class="fade-in delay-1">Join thousands of students who have transformed their careers with our comprehensive Python programming course.</p>
+            <a href="#enroll" class="btn btn-cta fade-in delay-2">Enroll Now - ₹14,999</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-logo">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>MSS</span>
+                    </div>
+                    <p>Providing innovative IT solutions and comprehensive courses to help businesses and students succeed in the digital world.</p>
+                    <div class="social-icons mt-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Quick Links</h5>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="courses.html">Courses</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Popular Courses</h5>
+                        <ul>
+                            <li><a href="#">Python Programming</a></li>
+                            <li><a href="#">Web Development</a></li>
+                            <li><a href="#">Data Science</a></li>
+                            <li><a href="#">Java Programming</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Contact Info</h5>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt me-2"></i> 123 Tech Street, City</li>
+                            <li><i class="fas fa-phone me-2"></i> +1 234 567 8900</li>
+                            <li><i class="fas fa-envelope me-2"></i> info@mss.com</li>
+                            <li><i class="fas fa-clock me-2"></i> Mon-Fri: 9AM-6PM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 MSS Solutions. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Update analog clock function
+        function updateAnalogClock() {
+            const now = new Date();
+            const seconds = now.getSeconds();
+            const minutes = now.getMinutes();
+            const hours = now.getHours() % 12;
+            
+            const secondDeg = (seconds / 60) * 360;
+            const minuteDeg = (minutes / 60) * 360 + (seconds / 60) * 6;
+            const hourDeg = (hours / 12) * 360 + (minutes / 60) * 30;
+            
+            document.querySelector('.second-hand').style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+            document.querySelector('.minute-hand').style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.querySelector('.hour-hand').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+        }
+        
+        // Update digital time display
+        function updateDigitalTime() {
+            const now = new Date();
+            
+            // Format time
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            
+            // Format date
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', options);
+            
+            // Update the clock element
+            document.getElementById('current-time').innerHTML = `${timeString}<br>${dateString}`;
+        }
+        
+        // Update clocks immediately and then every second
+        updateAnalogClock();
+        updateDigitalTime();
+        setInterval(() => {
+            updateAnalogClock();
+            updateDigitalTime();
+        }, 1000);
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Fade in animation on scroll
+        function checkFade() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+        
+        // Enrollment form submission
+        document.querySelectorAll('.btn-enroll-large').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Redirecting to enrollment page...');
+                // In a real application, this would redirect to the enrollment/payment page
+            });
+        });
+    </script>
+</body>
+</html>

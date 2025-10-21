@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova Solutions | IT Services & Training</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d74da;
+            --accent: #00b4d8;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --success: #10b981;
+            --gray: #64748b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 15px 0;
+            transition: all 0.4s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 26px;
+            color: var(--primary) !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary);
+        }
+        
+        .navbar-brand i {
+            font-size: 28px;
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .navbar-nav .nav-link {
+            color: var(--dark) !important;
+            font-weight: 500;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .navbar-nav .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--secondary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .navbar-nav .nav-link:hover:after,
+        .navbar-nav .nav-link.active:after {
+            width: 80%;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: var(--secondary) !important;
+        }
+        
+        .dropdown-menu {
+            background-color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 10px 0;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(45, 116, 218, 0.08);
+            color: var(--secondary);
+            padding-left: 25px;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(45, 116, 218, 0.3);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 116, 218, 0.4);
+        }
+        
+        /* Analog Clock Styles */
+        .clock-container {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        
+        .analog-clock {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            position: relative;
+            box-shadow: 0 0 0 2px var(--secondary), 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .clock-center {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        .hour-hand, .minute-hand, .second-hand {
+            position: absolute;
+            transform-origin: bottom center;
+            border-radius: 2px;
+            bottom: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .hour-hand {
+            width: 2px;
+            height: 10px;
+            background: var(--primary);
+            z-index: 1;
+        }
+        
+        .minute-hand {
+            width: 2px;
+            height: 15px;
+            background: var(--secondary);
+            z-index: 2;
+        }
+        
+        .second-hand {
+            width: 1px;
+            height: 18px;
+            background: var(--accent);
+            z-index: 3;
+        }
+        
+        .clock-time {
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark);
+            background: rgba(45, 116, 218, 0.08);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border-left: 2px solid var(--secondary);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+            padding: 160px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon fill="white" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            opacity: 0.9;
+        }
+        
+        .btn-hero {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 0 10px 10px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+        
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-hero-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 0 10px 10px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-hero-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        /* Services Section */
+        .service-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            height: 100%;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .service-card:hover:before {
+            transform: scaleX(1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 50px;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            display: inline-block;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(45, 116, 218, 0.1);
+        }
+        
+        /* Courses Section */
+        .courses-section {
+            background-color: #f8fafc;
+        }
+        
+        .course-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-img {
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-img:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-content {
+            padding: 25px;
+        }
+        
+        .course-content h4 {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .course-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .stat-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Clients Section */
+        .clients-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .client-logo {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            filter: grayscale(100%);
+        }
+        
+        .client-logo:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 20px;
+        }
+        
+        .footer-logo {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logo i {
+            font-size: 28px;
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .footer-logo span {
+            color: var(--secondary);
+        }
+        
+        .footer-links h5 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h5:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-section h1 {
+                font-size: 2.8rem;
+            }
+            
+            .clock-container {
+                margin: 10px 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 140px 0 80px;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <i class="fas fa-laptop-code"></i>
+      <span>MSS</span>
+    </a>
+
+    <!-- Navbar toggler for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="courses.html">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="services.html">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact Us</a>
+        </li>
+      </ul>
+
+      <!-- Clock + Login Button -->
+      <div class="d-flex align-items-center">
+        <div class="clock-container">
+          <div class="analog-clock">
+            <div class="hour-hand"></div>
+            <div class="minute-hand"></div>
+            <div class="second-hand"></div>
+            <div class="clock-center"></div>
+          </div>
+          <div class="clock-time">
+            <span id="current-time"></span>
+          </div>
+        </div>
+
+        <button class="btn login-btn ms-3">
+          <a href="login.html" style="text-decoration: none; color: #f8fafc;"><i class="fas fa-sign-in-alt me-2"></i>Login</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="animate__animated animate__fadeInUp">Innovative IT Solutions for Global Businesses</h1>
+                        <p class="animate__animated animate__fadeInUp animate__delay-1s">We deliver cutting-edge software development services and comprehensive IT training programs to drive digital transformation.</p>
+                        <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                            <a href="#services" class="btn btn-hero">Our Services</a>
+                            <a href="#courses" class="btn btn-hero-outline">Our Courses</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center animate__animated animate__fadeIn animate__delay-1s">
+                        <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='400' viewBox='0 0 500 400'%3E%3Crect fill='%232d74da' width='500' height='400'/%3E%3Cg fill='%231a365d'%3E%3Ccircle cx='250' cy='150' r='80'/%3E%3Crect x='200' y='250' width='100' height='80'/%3E%3C/g%3E%3C/svg%3E" alt="IT Solutions" class="img-fluid rounded-3 shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>Comprehensive IT solutions tailored to meet the unique needs of your business</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h4>Web App Development</h4>
+                        <p>Custom web applications built with modern technologies to meet your business needs.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card fade-in delay-1">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4>Software Development</h4>
+                        <p>Robust software solutions tailored to streamline your business operations.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card fade-in delay-2">
+                        <div class="service-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4>Mobile App Development</h4>
+                        <p>Native and cross-platform mobile applications for iOS and Android devices.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card fade-in delay-3">
+                        <div class="service-icon">
+                            <i class="fab fa-windows"></i>
+                        </div>
+                        <h4>Windows Software</h4>
+                        <p>Desktop applications for Windows platform with modern UI/UX design.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="section courses-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Courses</h2>
+                <p>Industry-relevant IT training programs designed to equip students with in-demand skills</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="course-card fade-in">
+                        <div class="course-img">
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <div class="course-content">
+                            <h4>HTML & CSS</h4>
+                            <p>Learn the fundamentals of web development with HTML and CSS.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="course-card fade-in delay-1">
+                        <div class="course-img">
+                            <i class="fab fa-js-square"></i>
+                        </div>
+                        <div class="course-content">
+                            <h4>JavaScript</h4>
+                            <p>Master interactive web development with JavaScript programming.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="course-card fade-in delay-2">
+                        <div class="course-img">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <div class="course-content">
+                            <h4>Python & Django</h4>
+                            <p>Build powerful web applications with Python and Django framework.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="course-card fade-in delay-3">
+                        <div class="course-img">
+                            <i class="fab fa-java"></i>
+                        </div>
+                        <div class="course-content">
+                            <h4>Java Programming</h4>
+                            <p>Learn object-oriented programming with Java for various applications.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="course-card fade-in delay-1">
+                        <div class="course-img">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="course-content">
+                            <h4>DBMS & SQL</h4>
+                            <p>Master database management systems and SQL query language.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="course-card fade-in delay-2">
+                        <div class="course-img">
+                            <i class="fab fa-bootstrap"></i>
+                        </div>
+                        <div class="course-content">
+                            <h4>Bootstrap & Tailwind</h4>
+                            <p>Create responsive websites with popular CSS frameworks.</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6">
+                    <div class="stat-item fade-in">
+                        <div class="stat-number" data-count="250">0</div>
+                        <div class="stat-text">Projects Completed</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item fade-in delay-1">
+                        <div class="stat-number" data-count="1200">0</div>
+                        <div class="stat-text">Students Trained</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item fade-in delay-2">
+                        <div class="stat-number" data-count="85">0</div>
+                        <div class="stat-text">Team Members</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-item fade-in delay-3">
+                        <div class="stat-number" data-count="15">0</div>
+                        <div class="stat-text">Years Experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="clients-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Clients</h2>
+                <p>Trusted by industry leaders worldwide</p>
+            </div>
+            
+            <div class="row align-items-center">
+                <div class="col-md-2 col-4 mb-4">
+                    <div class="client-logo">
+                        <i class="fab fa-microsoft fa-3x"></i>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 mb-4">
+                    <div class="client-logo">
+                        <i class="fab fa-google fa-3x"></i>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 mb-4">
+                    <div class="client-logo">
+                        <i class="fab fa-amazon fa-3x"></i>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 mb-4">
+                    <div class="client-logo">
+                        <i class="fab fa-apple fa-3x"></i>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 mb-4">
+                    <div class="client-logo">
+                        <i class="fab fa-meta fa-3x"></i>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 mb-4">
+                    <div class="client-logo">
+                        <i class="fab fa-slack fa-3x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-logo">
+                        <i class="fas fa-laptop-code"></i>
+                        Tech<span>Nova</span>
+                    </div>
+                    <p>Providing innovative IT solutions and comprehensive courses to help businesses and students succeed in the digital world.</p>
+                    <div class="social-icons mt-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Quick Links</h5>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#courses">Courses</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Our Services</h5>
+                        <ul>
+                            <li><a href="#">Web App Development</a></li>
+                            <li><a href="#">Software Development</a></li>
+                            <li><a href="#">Mobile App Development</a></li>
+                            <li><a href="#">Windows Software</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Contact Us</h5>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt me-2"></i> 123 Tech Street, City</li>
+                            <li><i class="fas fa-phone me-2"></i> +1 234 567 8900</li>
+                            <li><i class="fas fa-envelope me-2"></i> info@technova.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 TechNova Solutions. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Update analog clock function
+        function updateAnalogClock() {
+            const now = new Date();
+            const seconds = now.getSeconds();
+            const minutes = now.getMinutes();
+            const hours = now.getHours() % 12;
+            
+            const secondDeg = (seconds / 60) * 360;
+            const minuteDeg = (minutes / 60) * 360 + (seconds / 60) * 6;
+            const hourDeg = (hours / 12) * 360 + (minutes / 60) * 30;
+            
+            document.querySelector('.second-hand').style.transform = `translateX(-50%) rotate(${secondDeg}deg)`;
+            document.querySelector('.minute-hand').style.transform = `translateX(-50%) rotate(${minuteDeg}deg)`;
+            document.querySelector('.hour-hand').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+        }
+        
+        // Update digital time display
+        function updateDigitalTime() {
+            const now = new Date();
+            
+            // Format time
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            
+            // Format date
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            const dateString = now.toLocaleDateString('en-US', options);
+            
+            // Update the clock element
+            document.getElementById('current-time').innerHTML = `${timeString}<br>${dateString}`;
+        }
+        
+        // Update clocks immediately and then every second
+        updateAnalogClock();
+        updateDigitalTime();
+        setInterval(() => {
+            updateAnalogClock();
+            updateDigitalTime();
+        }, 1000);
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Fade in animation on scroll
+        function checkFade() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+        
+        // Animated counter for stats
+        function animateCounter() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounter, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+        
+        // Start counter animation when stats section is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.querySelector('.stats-section'));
+    </script>
+</body>
+</html>
