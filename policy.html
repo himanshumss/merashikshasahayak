@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/mss.png" type="image/x-icon">
+    <title>Mera Shiksha Sahayak | Policy</title>
+    <link rel="shortcut icon" href="mss.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d74da;
+            --accent: #00b4d8;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --success: #10b981;
+            --gray: #64748b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: var(--dark); background-color: var(--light); overflow-x: hidden; }
+        .navbar { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); padding: 15px 0; transition: all 0.4s ease; }
+        .navbar.scrolled { padding: 10px 0; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
+        .navbar-brand { font-weight: 700; font-size: 26px; color: var(--primary) !important; display: flex; align-items: center; }
+        .navbar-brand span { color: var(--secondary); }
+        .navbar-brand i { font-size: 28px; margin-right: 10px; color: var(--secondary); }
+        .navbar-nav .nav-link { color: var(--dark) !important; font-weight: 500; padding: 8px 16px; margin: 0 4px; border-radius: 6px; transition: all 0.3s ease; position: relative; }
+        .navbar-nav .nav-link:after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; background-color: var(--secondary); transition: all 0.3s ease; transform: translateX(-50%); }
+        .navbar-nav .nav-link:hover:after, .navbar-nav .nav-link.active:after { width: 80%; }
+        .navbar-nav .nav-link:hover { color: var(--secondary) !important; }
+        .login-btn { background: linear-gradient(135deg, var(--secondary), var(--accent)); color: white; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(45, 116, 218, 0.3); }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45, 116, 218, 0.4); }
+        .hero-section { background: linear-gradient(135deg, var(--primary) 0%, #1e3a8a 100%); color: white; padding: 160px 0 100px; position: relative; overflow: hidden; }
+        .hero-section:before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon fill="white" points="0,1000 1000,0 1000,1000"/></svg>'); background-size: cover; }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-section h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 20px; line-height: 1.2; }
+        .hero-section p { font-size: 1.2rem; margin-bottom: 30px; max-width: 700px; opacity: 0.9; }
+        .btn-hero { background: linear-gradient(135deg, var(--secondary), var(--accent)); color: white; padding: 14px 32px; border-radius: 8px; font-weight: 600; margin: 0 10px 10px 0; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: none; }
+        .btn-hero:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); }
+        .btn-hero-outline { background: transparent; color: white; border: 2px solid rgba(255, 255, 255, 0.3); padding: 12px 30px; border-radius: 8px; font-weight: 600; margin: 0 10px 10px 0; transition: all 0.3s ease; }
+        .btn-hero-outline:hover { background: rgba(255, 255, 255, 0.1); border-color: white; transform: translateY(-3px); }
+        .section { padding: 100px 0; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 15px; }
+        .section-title p { color: var(--gray); max-width: 700px; margin: 0 auto; font-size: 1.1rem; }
+        .service-card { background-color: white; border-radius: 12px; padding: 40px 30px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); transition: all 0.4s ease; height: 100%; border: 1px solid rgba(0, 0, 0, 0.03); position: relative; overflow: hidden; }
+        .service-card:before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(135deg, var(--secondary), var(--accent)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .service-card:hover:before { transform: scaleX(1); }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+        .policy-card { background: rgba(255,255,255,0.95); border-radius: 18px; padding: 35px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); border: 1px solid rgba(45, 116, 218, 0.12); }
+        .policy-card h3 { color: var(--primary); margin-bottom: 18px; }
+        .policy-list { list-style: none; padding: 0; margin: 0; }
+        .policy-list li { padding: 16px 0; border-bottom: 1px solid rgba(100, 116, 139, 0.12); color: var(--gray); }
+        .policy-list li:last-child { border-bottom: none; }
+        footer { background-color: var(--dark); color: white; padding: 80px 0 20px; }
+        .footer-logo { font-size: 26px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; }
+        .footer-logo i { font-size: 28px; margin-right: 10px; color: var(--secondary); }
+        .footer-logo span { color: var(--secondary); }
+        .footer-links h5 { font-size: 18px; margin-bottom: 20px; position: relative; padding-bottom: 10px; }
+        .footer-links h5:after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background-color: var(--secondary); }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links ul li { margin-bottom: 12px; }
+        .footer-links ul li a { color: #94a3b8; text-decoration: none; transition: all 0.3s ease; }
+        .footer-links ul li a:hover { color: white; }
+        .copyright { text-align: center; padding-top: 40px; margin-top: 40px; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #94a3b8; font-size: 14px; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        @media (max-width: 992px) { .hero-section h1 { font-size: 2.8rem; } }
+        @media (max-width: 768px) { .hero-section { padding: 140px 0 80px; } .hero-section h1 { font-size: 2.2rem; } .section { padding: 80px 0; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-laptop-code"></i>
+                <span>MSS</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="verify.html">Verify Certificate</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </ul>
+                <button class="btn login-btn ms-3"><a href="login.html" style="text-decoration: none; color: #f8fafc;"><i class="fas fa-sign-in-alt me-2"></i>Login</a></button>
+            </div>
+        </div>
+    </nav>
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="animate__animated animate__fadeInUp">Policy & Terms</h1>
+                        <p class="animate__animated animate__fadeInUp animate__delay-1s">This policy is designed to protect the interests of Mera Shiksha Sahayak while ensuring full compliance with Indian Government regulations.</p>
+                        <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                            <a href="contact.html" class="btn btn-hero">Contact Support</a>
+                            <a href="courses.html" class="btn btn-hero-outline">View Courses</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="policy-card animate__animated animate__fadeIn animate__delay-1s">
+                        <h3>Policy Highlights</h3>
+                        <ul class="policy-list">
+                            <li>Service delivery is governed by Indian laws including the IT Act, Consumer Protection Act and applicable GST rules.</li>
+                            <li>All users must provide accurate information and follow the platform rules to maintain service access.</li>
+                            <li>Payments are processed securely and are non-refundable except as required by law.</li>
+                            <li>Company reserves the right to modify service offerings and policy terms at any time.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Policy Overview</h2>
+                <p>These terms are company-favouring while remaining consistent with the rules and enforcement authorities of the Government of India.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="service-card fade-in delay-1">
+                        <h3>1. User Obligations</h3>
+                        <p>Users must register with genuine personal details, follow our usage rules, and maintain the confidentiality of their account credentials. Misuse, fraudulent activity or unlawful behaviour may result in immediate suspension.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="service-card fade-in delay-2">
+                        <h3>2. Payment Terms</h3>
+                        <p>All fees are payable in advance as per the published price. Refunds are provided only in line with Indian consumer protection law and at the sole discretion of Mera Shiksha Sahayak.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="service-card fade-in delay-3">
+                        <h3>3. Copyright & Content</h3>
+                        <p>All training material, website content and certificates are the property of the company. Unauthorized copying, distribution or resale is prohibited under applicable Indian copyright laws.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="service-card fade-in delay-4">
+                        <h3>4. Privacy & Data Use</h3>
+                        <p>We collect and process personal data only for service delivery and legal compliance. Data practices are aligned with the IT Act, proposed Indian data protection principles, and government directives.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="service-card fade-in delay-1">
+                        <h3>5. Service Termination</h3>
+                        <p>Mera Shiksha Sahayak may suspend or terminate access immediately if users violate policy terms, engage in illegal activity, or provide false information.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="service-card fade-in delay-2">
+                        <h3>6. Dispute Resolution</h3>
+                        <p>Any disputes will be handled under Indian jurisdiction and laws; the courts of Dehradun, Uttarakhand shall have exclusive authority unless otherwise required by statute.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="service-card fade-in delay-3">
+                        <h3>7. Indian Government Compliance</h3>
+                        <p>Our company follows Indian Government rules for education services, digital payments, taxation and information security. All services operate in full compliance with applicable central and state regulations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-logo"><i class="fas fa-laptop-code"></i><span>MSS</span></div>
+                    <p>Delivering reliable IT training and service solutions with strong compliance to Indian laws and best practices.</p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Quick Links</h5>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="courses.html">Courses</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Get Support</h5>
+                        <ul>
+                            <li><a href="contact.html">Support</a></li>
+                            <li><a href="login.html">Login</a></li>
+                            <li><a href="verify.html">Verify Certificate</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Contact</h5>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt me-2"></i>Dehradun, Uttarakhand</li>
+                            <li><i class="fas fa-phone me-2"></i>+91 9997604604</li>
+                            <li><i class="fas fa-phone me-2"></i>+91 7500011414</li>
+                            <li style="font-size: 12px;"><i class="fas fa-envelope me-2"></i>merashikshasahayak@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">&copy; 2026 Mera Shiksha Sahayak Pvt. Ltd. | All Rights Reserved.</div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function() { const navbar = document.querySelector('.navbar'); if (window.scrollY > 50) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); } });
+        function checkFade() { const fadeElements = document.querySelectorAll('.fade-in'); fadeElements.forEach(element => { const elementTop = element.getBoundingClientRect().top; if (elementTop < window.innerHeight - 150) { element.classList.add('visible'); } }); }
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+    </script>
+</body>
+</html>
