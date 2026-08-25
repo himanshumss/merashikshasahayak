@@ -681,26 +681,29 @@
                     <div class="form-card fade-in">
                         <h3 class="mb-4">Send Us a Message</h3>
                         <form id="contactForm" action="https://formsubmit.co/helpandsupport.mss@email.com" method="POST">
+                            <input type="hidden" name="_subject" value="New Contact Form Enquiry - MSS">
+                            <input type="hidden" name="_template" value="table">
+                            <input type="hidden" name="_captcha" value="false">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" required>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" required>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="email" class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" id="email" required>
+                                    <input type="email" class="form-control" id="email" name="email" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="phone" class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" id="phone">
+                                    <input type="tel" class="form-control" id="phone" name="phone">
                                 </div>
                                 <div class="col-12">
                                     <label for="subject" class="form-label">Subject</label>
-                                    <select class="form-select" id="subject" required>
+                                    <select class="form-select" id="subject" name="subject" required>
                                         <option value="" selected disabled>Select a subject</option>
                                         <option value="general">General Inquiry</option>
                                         <option value="services">IT Services</option>
@@ -712,11 +715,11 @@
                                 </div>
                                 <div class="col-12">
                                     <label for="message" class="form-label">Message</label>
-                                    <textarea class="form-control" id="message" rows="5" placeholder="Tell us about your project or inquiry..." required></textarea>
+                                    <textarea class="form-control" id="message" name="message" rows="5" placeholder="Tell us about your project or inquiry..." required></textarea>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="newsletter">
+                                        <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter">
                                         <label class="form-check-label" for="newsletter">
                                             Subscribe to our newsletter for updates and offers
                                         </label>
@@ -965,31 +968,7 @@
         
         window.addEventListener('scroll', checkFade);
         window.addEventListener('load', checkFade);
+        </script>
+    </body>
         
-        // Contact form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value,
-                newsletter: document.getElementById('newsletter').checked
-            };
-            
-            // In a real application, you would send this data to a server
-            console.log('Form submitted:', formData);
-            
-            // Show success message
-            alert('Thank you for your message! You cal call us directly at +91 9997604604 for immediate assistance.');
-            
-            // Reset form
-            this.reset();
-        });
-    </script>
-</body>
 </html>
